@@ -7,10 +7,11 @@ import Swal from 'sweetalert2';
 })
 export class AppStateService {
 
-  public countDown : Countdown = new Countdown();
-
   constructor() { 
     this.isLogin();
+
+    //inicia el temporizador con la hora exacta js
+    var starHora = setInterval(this.checkHora, 1000);
   }
 
   isLogin(): void{
@@ -27,17 +28,17 @@ export class AppStateService {
     .then((res)=>{
       if(res.value){
          Swal.mixin({
-          input: 'text',
           confirmButtonText: 'Siguiente',
           title: 'Bienvenido',
           text: 'Usted no posee un usuario en esta App, porfavor!',
           showCancelButton: true,
           showLoaderOnConfirm: true,
-          progressSteps: ['1', '2'],
+          progressSteps: ['1', '2', '3', '4'],
         }).queue([
           {
             title: 'Usuario',
-            text: 'Ingrese su usuario de Geovictoria'
+            text: 'Ingrese su usuario de Geovictoria',
+            input: 'text'
           },
           {
             title: 'Password',
@@ -45,9 +46,23 @@ export class AppStateService {
             input: 'password'
     
           },
-          
+          {
+            title: 'Hora de Almuerzo',
+            html: '<div class="container__hora">' +
+                  '<input type="time" name="time" id="timeLaunch" />' +
+                  '</div>'
+          },
+          {
+            title: 'Hora de Salida',
+            html: '<div class="container__hora">' +
+                  '<input type="time" name="time" id="timeOut" />' +
+                  '</div>'
+          }
         ]).then((result: any) => {
           if (result.value) {
+            let timeLaunch = (document.getElementById('timeLaunch') as HTMLInputElement).value;
+            let timeOut = (document.getElementById('timeOut') as HTMLInputElement).value;
+            alert(JSON.stringify({time1: timeLaunch, time2: timeOut}));
             const answers = JSON.stringify(result.value);
             localStorage.setItem('user',answers);
           }
@@ -56,4 +71,22 @@ export class AppStateService {
     });
 
   }
+
+  checkHora = () =>{
+    var d = new Date();
+    var t = d.toLocaleTimeString();
+
+    if(t === '18:38:00'){
+      Swal.fire({
+        icon: 'warning',
+        title: 'Recordatorio',
+        text: 'Hora de marcar QLO!!'
+      });
+    }
+  }
+
+  stopCheckHora = (id) =>{
+    clearInterval(id);
+  }
+
 }

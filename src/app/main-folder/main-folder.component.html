@@ -1,4 +1,12 @@
-<round-progress [current]="appStateService.countDown.current" [max]="appStateService.countDown.max" [stroke]="appStateService.countDown.stroke" [radius]="appStateService.countDown.radius" [semicircle]="appStateService.countDown.semicircle" [rounded]="appStateService.countDown.rounded"
-    [responsive]="appStateService.countDown.responsive" [clockwise]="appStateService.countDown.clockwise" [color]="appStateService.countDown.gradient ? 'url(#gradient)' : appStateService.countDown.color" [background]="appStateService.countDown.background"
-    [duration]="appStateService.countDown.duration" [animation]="appStateService.countDown.animation" [animationDelay]="appStateService.countDown.animationDelay">
-</round-progress>
+<div class="container__timer">
+    <div class="body__container">
+        <div class="screen__timer">
+            <span id="tiempo">00:00:00.00</span>
+        </div>
+        <div class="container__btns">
+            <button class="btn__start" [disabled]="isDisabled" (click)="start()">&#9658;</button>
+            <button class="btn__stop" [disabled]="!isDisabled" (click)="stop()">&#8718;</button>
+            <!-- <button class="btn__reset" [disabled]="!isDisabled" (click)="reset()">&#8635;</button> -->
+        </div>
+    </div>
+</div>

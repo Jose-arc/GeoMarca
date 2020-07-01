@@ -8,11 +8,11 @@ function createWindow() {
     win = new BrowserWindow({
         width: 600,
         height: 600,
-        minWidth: 600,
-        minHeight: 600,
-        maxWidth: 600,
-        maxHeight: 600,
-        maximizable: false,
+        // minWidth: 600,
+        // minHeight: 600,
+        // maxWidth: 600,
+        // maxHeight: 600,
+        // maximizable: false,
         backgroundColor: '#fffff',
         webPreferences: {
             nodeIntegration: true
@@ -28,7 +28,7 @@ function createWindow() {
     )
 
     //Quitar menu header de .exe
-    win.removeMenu();
+    //win.removeMenu();
 
     win.on('closed', function() {
         win = null
